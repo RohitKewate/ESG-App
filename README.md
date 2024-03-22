@@ -1,32 +1,53 @@
 # ESG App Backend
+
 Introduction
 ============
 
 This is the backend of the Environment Social Governance (ESG) application. It is a Django app, using the Django REST framework, written in Python. The app uses a SQL database. It also uses the pre-trained RoBERTa model for calculating the sentiment analysis score of the news articles.
 
-How it works
-============
+ESG Score Finder App
+Welcome to the ESG Score Finder App! This application helps you find the Environmental, Social, and Governance (ESG) scores of companies. Here's how it works:
 
-The app works like this:
+How to use
+===========
 
-1. If you want to find an ESG (Environmental, Social, and Governance) score of a company, search it in the frontend.
+Search for a Company: Start by searching for a company in the frontend of the app.
 
-2. The frontend sends a request to the Django backend for data from the database.
+Database Check: The app checks if the company is already in our database.
+- If the company is found, its ESG score is fetched and displayed in the frontend.
+- If the company is not found, it's added to our database.
+- 
+Biweekly Updates: For new companies, we perform biweekly updates.
+- We use spiders/crawlers to analyze news related to the company from the News API.
+- Each news article is scored individually, and a compound score is calculated.
+- This compound score is saved in our database.
 
-3. If the company is present in the database, then it will be fetched in the frontend.
+ESG Score Calculation: The app calculates the ESG score for the company based on the compound score and the ESG factor scores of the sector the company belongs to.
 
-4. If not, then the company is added in the backend's database and biweekly updates will be performed on that company.
+How to works
+=============
 
-5. The biweekly analysis is done on all the companies in the database. All the spiders/crawlers are run on the News API news related to that company, giving us individual scores of all the news articles.
+Frontend: The user interface where you search for companies.
 
-6. We get a compound score and save the in the database.
+Backend: The Django server that handles requests, updates the database, and performs the biweekly analysis.
 
-7. This score is calculated and an ESG score is formed for that perticular company.
+Database: Stores all the companies and their ESG scores.
 
-8. Remember it also checks the ESG factor scores of that sector in which that perticular company belongs to for calculating the company ESG score.
+Spiders/Crawlers: Tools that analyze news articles related to companies.
 
-How to start the app in your own server
-==========================================
+News API: Provides news articles for analysis.
+
+Benefits
+=============
+
+Easy to Use: Simply search for a company to find its ESG score.
+
+Up-to-Date Information: Companies are updated biweekly, ensuring the scores are current.
+
+Comprehensive Analysis: The app considers both the company's individual performance and the sector's ESG factors.
+
+Getting Started
+===============
 
 1. Install Python 3.8 or later.
 
