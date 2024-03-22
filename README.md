@@ -16,7 +16,7 @@ Search for a Company: Start by searching for a company in the frontend of the ap
 Database Check: The app checks if the company is already in our database.
 - If the company is found, its ESG score is fetched and displayed in the frontend.
 - If the company is not found, it's added to our database.
-- 
+  
 Biweekly Updates: For new companies, we perform biweekly updates.
 - We use spiders/crawlers to analyze news related to the company from the News API.
 - Each news article is scored individually, and a compound score is calculated.
