@@ -8,9 +8,9 @@ import numpy as np
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 import urllib.parse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import  get_object_or_404
 from django.db.models import Q
-from rest_framework.status import HTTP_500_INTERNAL_SERVER_ERROR
+from rest_framework.status import HTTP_500_INTERNAL_SERVER_ERROR, HTTP_200_OK
 from rest_framework.response import Response
 from .serializers import CompanySectorSerializer,CompanyDetailsSerializer,CompanySymbolSerializer, CompanyNameSerializer,EsgScoreSerializer
 from rest_framework.decorators import api_view, permission_classes
@@ -22,12 +22,14 @@ from scraper.scraper.spiders.spider import EmissionSpider,InnovationSpider,Resou
 import environ
 import os
 from dotenv import load_dotenv
+from .tasks import run_spider
 
 
 load_dotenv('.env.local')
 finnhub_client = finnhub.Client(api_key=os.getenv("FINNHUB_API_KEY"))
 
 #API's for utility
+
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def get_company_symbol(request):
@@ -498,4 +500,28 @@ def csr_spider(request):
     
     
 
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def run_task(request):
+    try:
+        for company in CompanyDetails.objects.all():
+            requests.get(f'{os.getenv("BASE_URL")}/api/emission_spider?q={company.company_name}')
+            requests.get(f'{os.getenv("BASE_URL")}/api/innovation_spider?q={company.company_name}')
+            requests.get(f'{os.getenv("BASE_URL")}/api/resource_spider?q={company.company_name}')
+            requests.get(f'{os.getenv("BASE_URL")}/api/human_spider?q={company.company_name}')
+            requests.get(f'{os.getenv("BASE_URL")}/api/product_spider?q={company.company_name}')
+            requests.get(f'{os.getenv("BASE_URL")}/api/workforce_spider?q={company.company_name}')
+            requests.get(f'{os.getenv("BASE_URL")}/api/community_spider?q={company.company_name}')
+            requests.get(f'{os.getenv("BASE_URL")}/api/management_spider?q={company.company_name}')
+            requests.get(f'{os.getenv("BASE_URL")}/api/shareholder_spider?q={company.company_name}')
+            requests.get(f'{os.getenv("BASE_URL")}/api/csr_spider?q={company.company_name}')
+            
+            print(f"Spider task for {company.company_name} completed successfully") 
+
+
+    except Exception as e:
+        return Response({'error': f"Unexpected error: {str(e)}"}, status=500)
+
+   
+    return Response({"message": "Task completed successfully"})
 

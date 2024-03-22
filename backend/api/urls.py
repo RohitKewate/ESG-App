@@ -19,4 +19,5 @@ urlpatterns = [
     path('management_spider/', views.management_spider, name='management_spider'),
     path('shareholder_spider/', views.shareholder_spider, name='shareholder_spider'),
     path('csr_spider/', views.csr_spider, name='csr_spider'), 
+    path('tasks/', views.run_task, name='tasks'),
 ]

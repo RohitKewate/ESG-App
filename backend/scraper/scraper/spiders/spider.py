@@ -32,7 +32,7 @@ from transformers import RobertaTokenizerFast, TFRobertaForSequenceClassificatio
 
 class EmissionSpider(scrapy.Spider):
     name = 'emission'
-    api_key = os.getenv("NEWS_API_KEY")  # Replace with your News API key
+    api_key = os.getenv("NEWS_API_KEY") 
     logger = logging.getLogger('EmissionSpider')
     newsapi = NewsApiClient(api_key=api_key)
     model = TFRobertaForSequenceClassification.from_pretrained('siebert/sentiment-roberta-large-english')

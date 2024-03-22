@@ -32,51 +32,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CELERY_BEAT_SCHEDULE = {
-    'run-emission-spider-every-30-days': {
-        'task': 'api.tasks.run_emission_spider',
-        'schedule': crontab(day_of_month='*/30'),
-    },
-    'run-innovation-spider-every-30-days': {
-        'task': 'api.tasks.run_innovation_spider',
-        'schedule': crontab(day_of_month='*/30'),
-    },
-    'run_resource_spider-every-30-days': {
-        'task': 'api.tasks.run_resource_spider',
-        'schedule': crontab(day_of_month='*/30'),
-    },
-    'run_human_spider-every-30-days': {
-        'task': 'api.tasks.run_human_spider',
-        'schedule': crontab(day_of_month='*/30'),
-    },
-    'run_product_spider-every-30-days': {
-        'task': 'api.tasks.run_product_spider',
-        'schedule': crontab(day_of_month='*/30'),
-    },
-    'run_workforce_spider-every-30-days': {
-        'task': 'api.tasks.run_workforce_spider',
-        'schedule': crontab(day_of_month='*/30'),
-    },
-    'run_community_spider-every-30-days': {
-        'task': 'api.tasks.run_community_spider',
-        'schedule': crontab(day_of_month='*/30'),
-    },
-    'run_management_spider-every-30-days': {
-        'task': 'api.tasks.run_management_spider',
-        'schedule': crontab(day_of_month='*/30'),
-    },
-    'run_shareholder_spider-every-30-days': {
-        'task': 'api.tasks.run_shareholder_spider',
-        'schedule': crontab(day_of_month='*/30'),
-    },
-    'run_csr_spider-every-30-days': {
-        'task': 'api.tasks.run_csr_spider',
-        'schedule': crontab(day_of_month='*/30'),
-    },
-
-}
-
-
 # Application definition
 
 INSTALLED_APPS = [
